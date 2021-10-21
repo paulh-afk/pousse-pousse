@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import Array from './Array';
+import Header from './Components/Header';
+import Game from './Game';
 
 const alphabetArray = [
   'a',
@@ -33,6 +34,14 @@ const alphabetArray = [
 ];
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      gameArray: alphabetArray.slice(),
+      playerIndex: 0,
+    };
+  }
+
   randomAlphabetArray() {
     const arr = [];
     for (let i = 0; i < alphabetArray.length; i++) {
@@ -40,19 +49,19 @@ class App extends Component {
     }
   }
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      gameArray: alphabetArray.slice(),
-    };
-  }
+  changePlayerIndex = (index) => {
+    this.setState({ playerIndex: index });
+  };
+
+  setNewArray = (arr) => {
+    this.setState({ gameArray: arr });
+  };
 
   render() {
-    console.log(this.state.gameArray);
     return (
       <div className="container">
-        <h3>Jeu du pousse pousse</h3>
-        <Array gameArray={this.state.alphabetArray} />
+        <Header gameArray={this.state.gameArray} />
+        <Game gameArray={this.state.gameArray} setNewGameArray={this.setNewArray} />
       </div>
     );
   }
